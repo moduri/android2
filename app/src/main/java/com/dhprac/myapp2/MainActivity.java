@@ -7,10 +7,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,11 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.test);
         Button btn = findViewById(R.id.notification_btn);
         Button activity3Btn = findViewById(R.id.notification_btn2);
+        Button serviceBtn = findViewById(R.id.btn_service);
 
         tv.setOnClickListener(new FCMClickListener());
 
@@ -60,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         addNotificationChannel(NOTIFICATION_CHANNEL_2, NOTIFICATION_NAME_2);
         activity3Btn.setOnClickListener(new Notification2ClickListener());
+
+        // 서비스 액티비티로 이동
+        serviceBtn.setOnClickListener(new ServiceActivityStartOnClickListener());
 
     }
 
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 메시지를 터치했을때 실행할 Activity를 지정
             // android 11 에 대응 위해 PendingIntent.FLAG_IMMUTABLE 추가
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
             intent.putExtra("minute", minute + "");
 
             PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 11, intent,
@@ -123,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    class ServiceActivityStartOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, ServiceTestActivity.class);
+            startActivity(intent);
+        }
+    }
+
     class Notification2ClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -131,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             builder.setContentText("이것은 택스트 2");
             builder.setSmallIcon(R.drawable.ic_launcher_background);
 
-            Intent intent = new Intent(MainActivity.this, MainActivity3.class);
+            Intent intent = new Intent(MainActivity.this, NotificationActivity2.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 11, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             builder.setContentIntent(pendingIntent);
