@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         return builder;
     }
 
-    private boolean isServiceRunning(String name) {
+     public boolean isServiceRunning(String name) {
         ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> serviceInfos = activityManager.getRunningServices(Integer.MAX_VALUE);
 

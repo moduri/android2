@@ -2,6 +2,7 @@ package com.dhprac.myapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.dhprac.myapp2.service.MyService;
+
+import java.util.List;
 
 public class ServiceTestActivity extends AppCompatActivity {
 
@@ -47,6 +50,8 @@ public class ServiceTestActivity extends AppCompatActivity {
         }
 
         bindService(serviceIntent, connection, BIND_AUTO_CREATE);
+
+
 
     }
 
