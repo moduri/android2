@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -18,13 +19,18 @@ public class MyService extends Service {
     static final String NOTIFICATION_CHANNEL_ID = "service";
     static final String NOTIFICATION_CHANNEL_NAME = "service";
     static final int MESSAGE_ID = 11;
+    static int value = 0;
+
     public MyService() {
     }
 
+    private LocalBinder localBinder = new LocalBinder();
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+         // TODO: Return the communication channel to the service.
+//        throw new UnsupportedOperationException("Not yet implemented");
+        // 바인딩 객체를 전달해준다.
+        return localBinder;
     }
 
     @Override
@@ -71,4 +77,18 @@ public class MyService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id);
         return builder;
     }
+
+    // 접속하는 Activity에서 서비스를 추출하기 위해 사용되는 객체
+    public class LocalBinder extends Binder {
+        public MyService getService() {
+            // 현재 동작 중인 서비스 객체를 전달.
+            return MyService.this;
+        }
+    }
+
+    // 변수의 값을 반환하는 메서드
+    public int getNumber() {
+        return value;
+    }
+
 }

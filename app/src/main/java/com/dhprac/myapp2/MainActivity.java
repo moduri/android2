@@ -2,6 +2,7 @@ package com.dhprac.myapp2;
 
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -27,6 +28,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     static final String NOTIFICATION_CHANNEL = "channel1";
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 서비스 액티비티로 이동
         serviceBtn.setOnClickListener(new ServiceActivityStartOnClickListener());
+
+        boolean isRunning = isServiceRunning("com.dhprac.myapp2.MyService");
 
     }
 
@@ -166,6 +170,20 @@ public class MainActivity extends AppCompatActivity {
     private NotificationCompat.Builder getNotificationBuilder(String id) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, id);
         return builder;
+    }
+
+    private boolean isServiceRunning(String name) {
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> serviceInfos = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+        for(ActivityManager.RunningServiceInfo info : serviceInfos) {
+            if (info.service.getClassName() == name) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
 }
