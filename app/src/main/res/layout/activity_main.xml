@@ -43,10 +43,11 @@
         android:text="서비스 테스트 액티비티로"/>
 
     <Button
-        android:id="@+id/btn_shorts"
+        android:id="@+id/btn_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="쇼츠"/>
+        android:text="Fragment Activity"/>
+
 
 </LinearLayout>

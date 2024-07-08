@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.notification_btn);
         Button activity3Btn = findViewById(R.id.notification_btn2);
         Button serviceBtn = findViewById(R.id.btn_service);
-        Button shortsBtn = findViewById(R.id.btn_shorts);
+        Button fragmentBtn = findViewById(R.id.btn_fragment);
 
         tv.setOnClickListener(new FCMClickListener());
-        shortsBtn.setOnClickListener(new ShortsActivityOnClickListener());
+        fragmentBtn.setOnClickListener(new FragmentActivityOnClickListener());
 
         // Notification 채널을 등록
         addNotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME);
@@ -134,10 +134,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class ShortsActivityOnClickListener implements View.OnClickListener {
+    class FragmentActivityOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, ShortsActivity.class);
+            Intent intent = new Intent(MainActivity.this, FragmentTestActivity.class);
             startActivity(intent);
         }
     }

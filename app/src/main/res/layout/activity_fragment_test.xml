@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FragmentTestActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        android:text="Fragment Activity" />
+
+    <Button
+        android:id="@+id/btn_fragment1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="프래그먼트1"/>
+
+    <Button
+        android:id="@+id/btn_fragment2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="프래그먼트2"/>
+
+    <Button
+        android:id="@+id/btn_fragment_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="프래그먼트 제거"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcv_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
