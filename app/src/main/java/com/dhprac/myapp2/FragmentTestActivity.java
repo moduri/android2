@@ -81,4 +81,29 @@ public class FragmentTestActivity extends AppCompatActivity {
             }
         }
     }
+
+    static final String FIRST_FRAGMENT = "first";
+    static final String SECOND_FRAGMENT = "second";
+
+    public void setFragment(String name, boolean add) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        switch (name) {
+            case FIRST_FRAGMENT:
+                TestFragment frag1 = new TestFragment();
+                transaction.replace(R.id.fcv_fragment, frag1);
+                break;
+            case SECOND_FRAGMENT:
+                TestFragment2 frag2 = new TestFragment2();
+                transaction.replace(R.id.fcv_fragment, frag2);
+                break;
+        }
+
+        if (add == true) {
+            transaction.addToBackStack(null);
+        }
+
+        transaction.commit();
+    }
 }
