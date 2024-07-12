@@ -7,10 +7,15 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import com.dhprac.myapp2.service.MyService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -35,6 +42,20 @@ public class MainActivity extends AppCompatActivity {
     static final String NOTIFICATION_CHANNEL_2 = "channel2";
     static final String NOTIFICATION_NAME = "채널1 알림";
     static final String NOTIFICATION_NAME_2 = "채널2 알림";
+    MyService MyService;
+
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MyService.LocalBinder binder = (MyService.LocalBinder) service;
+            MyService = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isRunning = isServiceRunning("com.dhprac.myapp2.MyService");
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        //
+        Intent serviceIntent = new Intent(this, com.dhprac.myapp2.service.MyService.class);
+        bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE);
     }
 
     class FCMClickListener implements View.OnClickListener {

@@ -79,6 +79,7 @@ public class MyService extends Service {
     }
 
     // 접속하는 Activity에서 서비스를 추출하기 위해 사용되는 객체
+
     public class LocalBinder extends Binder {
         public MyService getService() {
             // 현재 동작 중인 서비스 객체를 전달.
@@ -89,6 +90,15 @@ public class MyService extends Service {
     // 변수의 값을 반환하는 메서드
     public int getNumber() {
         return value;
+    }
+
+
+    public void playSome() {
+        Log.d("Some", "SOME");
+    }
+
+    public void stopSome() {
+        Log.d("Some", "SOME");
     }
 
 }
